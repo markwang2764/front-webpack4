@@ -16,7 +16,7 @@ import Home from '@routes/Home';
 const About = () => <div>About</div>
 const Topics = () => <div>Topics</div>
 import New from './routes/New';
-import './app.less';
+import './index.less';
 
 ReactDom.render(
   <Provider store={store}>
