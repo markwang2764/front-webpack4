@@ -11,7 +11,6 @@ const store = createStore(reducers, compose(
   applyMiddleware(thunk)
 ))
 
-
 import Home from '@routes/Home';
 const About = () => <div>About</div>
 const Topics = () => <div>Topics</div>

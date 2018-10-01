@@ -1,9 +1,18 @@
-const { smart } = require('webpack-merge')
+const {
+  smart
+} = require('webpack-merge')
 const webpack = require('webpack')
 const FriendlyErrorsPlugin = require("friendly-errors-webpack-plugin");
 
 const baseConfig = require('./webpack.base')
 const path = require('path')
+const entry = require("../config/entry");
+
+console.log(entry);
+
+const utils = require("./uitls")
+utils.computeEntry(entry)
+console.log(baseConfig);
 
 Object.keys(baseConfig.entry).forEach(function (name) {
 
@@ -49,10 +58,10 @@ module.exports = smart(baseConfig, {
 })
 
 
- 
 
 
-const computeHtmlWebpackEntry = function(entry) {
+
+const computeHtmlWebpackEntry = function (entry) {
   entry = entry || [];
   let result = [];
 

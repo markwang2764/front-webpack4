@@ -1,13 +1,13 @@
 const webpack = require('webpack')
 const webpackOptions = require('../build/webpack.dev')
-const opn = require('opn'); 
+const opn = require('opn');
 const path = require('path')
 
 const compiler = webpack(webpackOptions)
-
+const entry = require('./config/entry.js')
 const express = require('express')
 
-const app =express()
+const app = express()
 
 
 
@@ -26,23 +26,22 @@ app.use(devMiddlerware(compiler, {
 app.use(hotMiddlerware(compiler, {
   log: false
 }));
-app.use(histroyApiFallback(
-  {
-    disableDotRule: true,//处理文件后缀的404
-    htmlAcceptHeaders: ['text/html', 'application/xhtml+xml']
-  }
-));
+app.use(histroyApiFallback({
+  disableDotRule: true, //处理文件后缀的404
+  htmlAcceptHeaders: ['text/html', 'application/xhtml+xml']
+}));
 app.use(express.static('.'));
 app.get('*', function (req, res) {
   console.log(req.url);
-  
+
   // res.redirect('/')
 });
-
+app.get('/api/entry', function (req, res) {
+  res.json(entry)
+});
 const chalk = require('chalk');
 let browserUrl = `http://localhost:3000`
 app.listen(3000, () => {
   console.log(chalk.green('server run at port 3000'));
   opn(browserUrl);
 })
-
