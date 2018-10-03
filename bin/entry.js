@@ -14,8 +14,10 @@ let args = process
 
     const ext = relative.substring(relative.lastIndexOf('.'), relative.length)
     const rpath = relative.substring(0, relative.lastIndexOf('/') + 1)
-    const template = relative.replace(/entry\.(js|ts)/, 'entry.html')
-    const htmlPath = path.join(entryDir, template)
+    const template = pagePath + '/' + relative.replace(/entry\.(js|ts)/, 'entry.html')
+    
+    const htmlPath = path.join(__dirname, '..', template)
+    
     const htmlContent = fs.readFileSync(htmlPath, 'utf8')
     let title = htmlContent.match(/<title>(.*)<\/title>/)
     title = title ? title[1] : ''
@@ -28,6 +30,7 @@ let args = process
       title: '${title}'
     }`)
   });
+  
   const content = `${tips}
   module.exports = [
   ${entryResult.join(',\n')}

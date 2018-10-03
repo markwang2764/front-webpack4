@@ -4,15 +4,14 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtracTextPlugin = require('extract-text-webpack-plugin')
 const entry = require("../config/entry");
 const utils = require("./uitls")
-const webpack = require('webpack')
-utils.computeEntry(entry)
+
 module.exports = {
 
   entry: utils.computeEntry(entry),
 
   resolve: {
     alias: {
-      '@routes': path.resolve(__dirname, '../src/routes'),
+      'routes': path.resolve(__dirname, '../src/routes'),
       '@util': path.resolve(__dirname, '../src/util'),
     },
     extensions: ['.wasm', '.mjs', '.js', '.json', '.jsx', '.ts', '.css', '.less'],
@@ -92,7 +91,8 @@ module.exports = {
             name：指定文件输出名
             [hash] 为源文件的hash值，[ext] 为后缀。
             */
-            name: '[hash].[ext]'
+           name: '[path][name].[ext]',
+           outputPath: utils.assetsSubDirectory('')
           }
         }]
       },
@@ -112,18 +112,15 @@ module.exports = {
           }
         }
       },
+      // {
+      //   test: /\.(htm|html)$/,
+      //   use: 'html-withimg-loader?min=false'
+      // }
 
     ]
   },
 
   plugins: [
-    new ManifestPlugin(),
-    new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, '../src/index.html'),
-      chunksSortMode: 'none'
-    }),
-    new ExtracTextPlugin({
-      filename: 'stylesheets/[name].[hash].css'
-    }),
+    new ManifestPlugin()
   ]
 }
