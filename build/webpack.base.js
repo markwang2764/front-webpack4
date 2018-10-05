@@ -1,7 +1,6 @@
 const path = require('path')
 const ManifestPlugin = require('webpack-manifest-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const ExtracTextPlugin = require('extract-text-webpack-plugin')
 const entry = require("../config/entry");
 const utils = require("./uitls")
 
@@ -58,22 +57,6 @@ module.exports = {
           loader: "ts-loader"
         },
         exclude: /node_modules/,
-      },
-
-      {
-        test: /\.css$/,
-        use: ExtracTextPlugin.extract({
-          fallback: 'style-loader',
-          use: ['css-loader', 'postcss-loader']
-        })
-      },
-
-      {
-        test: /\.less$/,
-        use: ExtracTextPlugin.extract({
-          fallback: 'style-loader',
-          use: ['css-loader', 'less-loader', 'postcss-loader']
-        })
       },
 
       {

@@ -39,6 +39,13 @@ module.exports = smart(baseConfig, {
     hints: false
   },
 
+  module: {
+    rules: utils.styleLoaders({
+      sourceMap: true,
+      usePostCSS: true
+    })
+  },
+
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new FriendlyErrorsPlugin({
