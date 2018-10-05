@@ -8,7 +8,7 @@ module.exports = {
   entry: {
     index: [path.resolve(__dirname, '../src/app.js')],
   },
-  
+
   resolve: {
     alias: {
       '@routes': path.resolve(__dirname, '../src/routes'),
@@ -23,7 +23,7 @@ module.exports = {
 
   module: {
     rules: [
-    
+
       {
         test: /\.html$/,
         use: [
@@ -43,7 +43,7 @@ module.exports = {
           }
         ]
       },
-    
+
       {
         test: /\.(jsx|js)$/,
         use: {
@@ -102,9 +102,9 @@ module.exports = {
 
       {
         test: /\.(png|jpg|jpeg|gif|eot|ttf|woff|woff2|svg|svgz)(\?.+)?$/,
-         // 排除 favicon.png, 因为它已经由上面的 loader 处理了。如果不排除掉，它会被这个 loader 再处理一遍
+        // 排除 favicon.png, 因为它已经由上面的 loader 处理了。如果不排除掉，它会被这个 loader 再处理一遍
         exclude: /favicon\.png$/,
-         
+
         use: {
           loader: 'url-loader',
           options: {

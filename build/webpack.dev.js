@@ -34,7 +34,7 @@ module.exports = smart(baseConfig, {
     new webpack.HotModuleReplacementPlugin(),
     new FriendlyErrorsPlugin({
       compilationSuccessInfo: {
-        messages: [`Your application is running here: http://${host}:${port}`],
+        messages: [`Your application is running here: http://location:9000`],
         notes: ['Some additionnal notes to be displayed unpon successful compilation']
       },
       // should the console be cleared between each compilation?
