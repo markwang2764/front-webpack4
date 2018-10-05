@@ -2,8 +2,27 @@ const { smart } = require('webpack-merge')
 const webpack = require('webpack')
 const baseConfig = require('./webpack.base')
 const path = require('path')
-const ExtracTextPlugin = require('extract-text-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
+const utils = require('./uitls');
+const entry = require('../config/entry');
+const config = require('../config');
+const time = process.env.npm_config_replace
+  ? process.env.npm_config_replace
+  : (function() {
+      var date = new Date();
+      var Y = date.getFullYear();
+      var M = date.getMonth() + 1;
+      var D = date.getDate();
+      var h = date.getHours();
+      var m = date.getMinutes();
+      function addZero(num) {
+        return num > 9 ? num : '0' + num;
+      }
+      return [Y, addZero(M), addZero(D), addZero(h), addZero(m)].join('');
+    })();
+
 
 module.exports = smart(baseConfig, {
 
@@ -13,7 +32,7 @@ module.exports = smart(baseConfig, {
 
   output: {
     path: path.resolve(__dirname, '../dist'),
-    filename: '[name].[chunkhash].js',
+    filename: `[name].[${time}].js`,
     chunkFilename: 'chunks/[name].[chunkhash].min.js',
     publicPath: '',
   },
@@ -23,29 +42,34 @@ module.exports = smart(baseConfig, {
     runtimeChunk 设置为 true, webpack 就会把 chunk 文件名全部存到一个单独的 chunk 中，
     这样更新一个文件只会影响到它所在的 chunk 和 runtimeChunk，避免了引用这个 chunk 的文件也发生改变。
     */
-    runtimeChunk: true,
+    runtimeChunk: false,
     splitChunks: {
-      cacheGroups: {
-        vendorf: {
-          chunks: "all",
-          test: /node_modules/, // 路径在 node_modules 目录下的都作为公共部分
-          name: "vendors", // 使用 react 入口作为公共部分
-          enforce: true,
-          priority: 2
-        },
-        commons: {
-          chunks: "all",
-          name: "commons", // 使用 commons 入口作为公共部分
-          minChunks: 5, // 引用次数大于5则打包进commons
-          minSize: 3000, // chunk大小大于这个值才允许打包进commons
-          enforce: true,
-          priority: 1
-        },
-      },
+      // cacheGroups: {
+      //   vendorf: {
+      //     chunks: "all",
+      //     test: /node_modules/, // 路径在 node_modules 目录下的都作为公共部分
+      //     name: "vendors", // 使用 react 入口作为公共部分
+      //     enforce: true,
+      //     priority: 2
+      //   },
+      //   commons: {
+      //     chunks: "all",
+      //     name: "commons", // 使用 commons 入口作为公共部分
+      //     minChunks: 5, // 引用次数大于5则打包进commons
+      //     minSize: 3000, // chunk大小大于这个值才允许打包进commons
+      //     enforce: true,
+      //     priority: 1
+      //   },
+      // },
     },
   },
 
   plugins: [
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    // new ExtractTextPlugin({
+    //   filename: `[name]-${time}.css`,
+    //   allChunks: true
+    // }),
     new CleanWebpackPlugin('dist', {
       root: path.resolve(__dirname, '../'),
     }),
@@ -57,8 +81,10 @@ module.exports = smart(baseConfig, {
     因此使用文件路径的 hash 作为 moduleId 来避免这个问题。
     */
     new webpack.HashedModuleIdsPlugin(),
-
-  ]
+    // new OptimizeCSSPlugin({
+    //   cssProcessorOptions: config.build.productionSourceMap ? { safe: true, map: { inline: false } } : { safe: true }
+    // })
+  ].concat(utils.computeHtmlWebpackEntry(entry))
 })
 
 

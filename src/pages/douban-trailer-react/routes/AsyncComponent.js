@@ -21,6 +21,10 @@ const AsyncComponent = loadComponent => (
       return this.state.Component !== null
     }
 
+    das(){
+      
+    }
+
     render() {
       const { Component } = this.state
       return (Component) ? <Component {...this.props} /> : null

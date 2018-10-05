@@ -1,10 +1,17 @@
-const { smart } = require('webpack-merge')
+const {
+  smart
+} = require('webpack-merge')
 const webpack = require('webpack')
+const path = require('path')
 const FriendlyErrorsPlugin = require("friendly-errors-webpack-plugin");
 
 const baseConfig = require('./webpack.base')
-const path = require('path')
+const entry = require('../config/entry')
+const utils = require('./uitls')
 
+const {
+  dev
+} = require('../config')
 Object.keys(baseConfig.entry).forEach(function (name) {
 
   if (name !== 'vendors') {
@@ -12,6 +19,8 @@ Object.keys(baseConfig.entry).forEach(function (name) {
   }
 
 });
+
+// console.log(baseConfig.entry);
 
 
 module.exports = smart(baseConfig, {
@@ -34,7 +43,7 @@ module.exports = smart(baseConfig, {
     new webpack.HotModuleReplacementPlugin(),
     new FriendlyErrorsPlugin({
       compilationSuccessInfo: {
-        messages: [`Your application is running here: http://location:9000`],
+        messages: [`Your application is running here: http://${dev.host}:${dev.port}`],
         notes: ['Some additionnal notes to be displayed unpon successful compilation']
       },
       // should the console be cleared between each compilation?
@@ -45,43 +54,12 @@ module.exports = smart(baseConfig, {
       DEBUG: true,
       VERSION: '1'
     })
-  ]
+  ].concat(utils.computeHtmlWebpackEntry(entry))
 })
 
 
- 
 
 
-const computeHtmlWebpackEntry = function(entry) {
-  entry = entry || [];
-  let result = [];
 
-  for (let i = 0, len = entry.length; i < len; i++) {
-    let item = entry[i];
-    let path = item.path;
-    let name = item.name;
-    // let pathBuild = path.replace(/\//g, '-')
-    let pathBuild = path;
-    let template = item.template;
 
-    result.push(
-      new HtmlWebpackPlugin({
-        template: template,
-        filename: path + name + '.html',
-        inject: true, // 默认值，script标签位于html文件的 body 底部
-        chunks: [pathBuild + name], // 不指定的话就会加载所有的chunk
-        // chunks: [pathBuild + name, 'runtime~' + pathBuild + name, 'vendors', 'app', 'default'], // 不指定的话就会加载所有的chunk
-        // chunks: [pathBuild + name, 'vendors', 'default'], // 不指定的话就会加载所有的chunk
-        // necessary to consistently work with multiple chunks via CommonsChunkPlugin
-        chunksSortMode: 'dependency',
-        minify: false // Pass html-minifier's options as object to minify the output
-      })
-    );
-  }
-  result.push(
-    new HtmlWebpackScriptAttributesPlugin({
-      crossorigin: 'anonymous'
-    })
-  );
-  return result;
-};
+
