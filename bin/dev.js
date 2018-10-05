@@ -11,7 +11,7 @@ let arguments = process.argv.splice(2)
 execCmd(`npm run build:file ${arguments[0] ? arguments[0] : ''}`)
   .then(() => {
     
-    const www = spawn('node', ['./bin/www.js'])
+    const www = spawn('node', ['./bin/server.js'])
     
     www.stdout.on('data', data => {
 

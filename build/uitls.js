@@ -53,18 +53,17 @@ exports.computeHtmlWebpackEntry = function (entry) {
     );
   }
 
-  result.push(
-    new HtmlWebpackScriptAttributesPlugin({
-      crossorigin: 'anonymous'
-    })
-  );
+  // result.push(
+  //   new HtmlWebpackScriptAttributesPlugin({
+  //     crossorigin: 'anonymous'
+  //   })
+  // );
   
   return result;
 };
 
 exports.assetsSubDirectory = function() {
 
-  console.log(arguments);
   [].slice.call(arguments, 0).unshift('');
   // console.log(arguments)
   return path.posix.join.apply(null, arguments);

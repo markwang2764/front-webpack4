@@ -10,9 +10,8 @@ import {Routes} from "./routes";
 const store = createStore(reducers, compose(applyMiddleware(thunk)))
 
 import Home from './routes/Home';
-const About = () => <div>About</div>
+const About = () => <div>Aboutfdsadsa</div>
 const Topics = () => <div>Topics</div>
-import New from './routes/New';
 import './entry.less';
 
 ReactDom.render(
@@ -22,18 +21,18 @@ ReactDom.render(
     <div>
       <ul>
         <li>
-          <Link to='/'>首页</Link>
+          <Link to='/react-app'>首页hdshdsaadjrksahjdslajds</Link>
         </li>
         <li>
-          <Link to='/about'>关于</Link>
+          <Link to='/react-app/about'>关于ddsa</Link>
         </li>
         <li>
-          <Link to='/topics'>主题列表</Link>
+          <Link to='/react-app/topics'>主题列表</Link>
         </li>
       </ul>
-      <Route exact path='/' component={Home}/>
-      <Route path='/about' component={About}/>
-      <Route path='/topics' component={Topics}/>
+      <Route exact path='/react-app' component={Home}/>
+      <Route path='/react-app/about' component={About}/>
+      <Route path='/react-app/topics' component={Topics}/>
     </div>
   </Router>
 </Provider>, document.querySelector('#app'));

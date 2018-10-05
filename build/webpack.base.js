@@ -1,6 +1,5 @@
 const path = require('path')
 const ManifestPlugin = require('webpack-manifest-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin')
 const entry = require("../config/entry");
 const utils = require("./uitls")
 

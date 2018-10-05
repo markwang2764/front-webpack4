@@ -7,6 +7,7 @@
     "build": "cross-env NODE_ENV=production node bin/build.js",
     "build:file": "node bin/entry.js",
     "build:server": "nodemon bin/buildServer.js",
+    "start": "cross-env NODE_ENV=development node bin/dev.js",
     "dev": "cross-env NODE_ENV=development node bin/dev.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -28,6 +29,7 @@
     "cross-env": "^5.2.0",
     "css-loader": "^1.0.0",
     "debug": "^4.0.1",
+    "ejs": "^2.6.1",
     "express": "^4.16.3",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "^2.0.0",
