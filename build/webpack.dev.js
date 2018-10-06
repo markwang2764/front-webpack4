@@ -13,7 +13,6 @@ const {
   dev
 } = require('../config')
 
-console.log(utils.computeHtmlWebpackEntry(entry));
 
 Object.keys(baseConfig.entry).forEach(function (name) {
 

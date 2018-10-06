@@ -1,70 +1,97 @@
 import React, { Component } from 'react';
 import './app.less';
 
+let currentPosition = 0
+let currentPoint = -1
+let pageNow = 1
+
 class App extends Component {
+  state = {
+    eleArr : [3, 4, 1, 2, 3],
+    currentIndex : 2
+  }
+
   componentDidMount = () => {
     this.bindTouchEvent()
   }
 
   transform = translate => {
-    this.refs.viewport.style.webkitTransform = `translate3d(${translate}px,0,0)`
-    this.setState({
-      currentPosition: translate
-    })
+    console.log(translate);
+    
+    setTimeout(() => {
+      this.refs.viewport.style.webkitTransform = `translate3d(${translate}px,0,0)`
+    }, 0);
+    currentPosition = translate
   }
 
   setPageNow = (currentPoint) => {
-    const {
-      points
-    } = this.state
+  
 
-    // if (currentPoint != -1) {
-    //   points[currentPoint].className = ''
-    // }
-    // points[currentPoint].className = 'now'
+    if (currentPoint != -1) {
+      points[currentPoint].className = ''
+    }
+    points[currentPoint].className = 'now'
   }
 
   bindTouchEvent = () => {
-    let currentPosition = 0
-    let currentPoint = -1
-    let pageNow = 1
+
     let isMove = false
     let points = document.querySelectorAll('.pageview')
+    console.log(points[0].clientWidth);
+    
     const viewport = this.refs.viewport
+    viewport.style.width = points[0].clientWidth*(this.state.eleArr.length+10)+ 'px'
+    this.transform(-265)
     const pageWidth = window.innerWidth
+    const moveWidth = 300
 
     const maxWidth = - pageWidth * (points.length - 1)
     let startX,
       startY
     let initialPos = 0
     let moveLength = 0
+    let direction = 'left'
     let startT = 0
     let isTouchEnd = true
     viewport.addEventListener('touchstart', e => {
       e.preventDefault()
-      if (e.touches.length === 1 || isTouchEnd) {
+      
+      console.log(Math.abs(moveLength));
+      
+      // if(Math.abs(moveLength) >= 150) {
+      //   const eleArr = this.state.eleArr
+      //   const last = eleArr.pop() 
+      //   console.log(last);
+      //   eleArr.unshift(last)
+      //   console.log(eleArr);
+      //   this.setState({eleArr})
+        
+      // }
+      if (e.touches.length === 1) {
         const touch = e.touches[0]
         startX = touch.pageX
         startY = touch.pageY
+        
         initialPos = currentPosition
 
         viewport.style.webkitTransition = ''
         startT = + new Date()
         isMove = false
-        isTouchEnd = false
+        // isTouchEnd = false
       }
     }, false)
 
 
     viewport.addEventListener('touchmove', e => {
       e.preventDefault()
-      if (isTouchEnd) return
+      // if (isTouchEnd) return
       const touch = e.touches[0]
 
       let deltaX = touch.pageX - startX
       let deltaY = touch.pageY - startY
+      
       let translate = initialPos + deltaX
-
+      
       if (translate > 0) {
         translate = 0
       }
@@ -76,6 +103,8 @@ class App extends Component {
       this.transform(translate)
       isMove = true
       moveLength = deltaX
+      direction = deltaX > 0 ? 'right': 'left'
+  
     }, false)
 
 
@@ -86,29 +115,37 @@ class App extends Component {
       viewport.style.webkitTransition = '0.3s ease -webkit-transform'
       const count = Math.abs(currentPosition) / pageWidth
 
-      if (deltaT < 300 && isMove) {
-        translate = - pageWidth + currentPosition + moveLength
+      if (deltaT < 300) {
+        if (currentPosition === 0 && translate === 0) {
+          return ;
+      }
+      translate = direction === 'left' ? 
+          currentPosition - (moveWidth + moveLength) 
+          : currentPosition + moveWidth - moveLength;
+      // 如果最终位置超过边界位置，则停留在边界位置
+      // 左边界
+      translate = translate > 0 ? 0 : translate; 
+      // 右边界
+      translate = translate < maxWidth ? maxWidth : translate; 
       } else {
-        if (Math.abs(moveLength) / pageWidth < 0.5) {
+        
+        if (Math.abs(moveLength) / moveWidth < 0.5) {
           translate = currentPosition - moveLength
         } else {
-
+          translate = direction === 'left' ? 
+          currentPosition - (moveWidth + moveLength)
+          : currentPosition + moveWidth - moveLength
+          
           translate = translate > 0 ? 0 : translate
           translate = translate < maxWidth ? maxWidth : translate
         }
       }
-      console.log(translate);
 
       this.transform(translate)
-      setTimeout(() => {
-        console.log(currentPosition);
-      }, 0);
-      const pageNow = Math.round(Math.abs(translate) / pageWidth) + 1
-      setTimeout(() => {
-
-        this.setPageNow(pageNow - 1)
-      }, 100);
-
+      const currentIndex = Math.round(Math.abs(translate) / 300) + 1
+      this.setState({
+        currentIndex
+      })      
     })
   }
 
@@ -117,22 +154,14 @@ class App extends Component {
     return (
       <div className="page">
         <div className="viewport" ref="viewport">
-          <div className="pageview" style={{ background: "#3b76c0" }} >
-            <h3 >页面-1</h3>s
-            <button style={{ display: "none" }}></button>
-          </div>
-          <div className="pageview" style={{ background: "#58c03b" }}>
-            <h3>页面-2</h3>
-          </div>
-          <div className="pageview" style={{ background: "#c03b25" }}>
-            <h3>页面-3</h3>
-          </div>
-          <div className="pageview" style={{ background: "#e0a718" }}>
-            <h3>页面-4</h3>
-          </div>
-          <div className="pageview" style={{ background: "#c03eac" }}>
-            <h3>页面-5</h3>
-          </div>
+          {
+            this.state.eleArr.map((v,i) => 
+            <div key= {i} className="pageview" style={{ background: "#3b76c0",width: '300px' }} >
+              <h3 >页面-{v}</h3>
+              <button style={{ display: "none" }}></button>
+            </div>
+            )
+          }
         </div>
       </div>
     );

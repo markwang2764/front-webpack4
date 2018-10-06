@@ -3,4 +3,4 @@ import ReactDom from 'react-dom';
 import App from './App'
 
 ReactDom.render(
-  <div>daskddsaddsadsasdsasa</div>, document.querySelector('#app'));
+  <App />, document.querySelector('#app'));
