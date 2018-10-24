@@ -1,3 +1,9 @@
+/**
+ * @note
+ * @author  wangyuefeng 
+ * @create  2018-10-01
+ */
+
 const isFunction = variable => typeof variable === 'function'
 const PENDING = 'PENDING'
 const REJECTED = 'REJECTED'
@@ -5,7 +11,7 @@ const REJECTED = 'REJECTED'
 class MyPromise {
 
   constructor(handle) {
-    if(!isFunction(handle)) {
+    if (!isFunction(handle)) {
       throw new Error('MyPromise must accept a fuction as a parameter')
     }
 
@@ -43,7 +49,7 @@ class MyPromise {
         当前Promsie的状态才会改变，且状态取决于参数Promsie对象的状态
       |--------------------------------------------------
       */
-      
+
       if (val instanceof MyPromise) {
         val.then(value => {
           this._value = value
@@ -114,7 +120,7 @@ class MyPromise {
         } catch (err) {
           onRejectedNext(err)
         }
-      } 
+      }
 
       let rejected = error => {
         try {
@@ -141,7 +147,7 @@ class MyPromise {
   }
 
   static resovle(value) {
-    if(value instanceof MyPromise) return value
+    if (value instanceof MyPromise) return value
     return new MyPromise(resolve => resolve(value))
   }
 
@@ -157,7 +163,7 @@ class MyPromise {
         this.resovle(p).then(res => {
           values[i] = res
           count++
-          if(count === list.length) resolve(values)
+          if (count === list.length) resolve(values)
         }, err => {
           reject(err)
         })
@@ -180,7 +186,7 @@ class MyPromise {
   finally(cb) {
     return this.then(
       value => MyPromise.resovle(cb().then(() => value)),
-      resson => MyPromise.resovle(cb().then(() => {throw reason}))
+      resson => MyPromise.resovle(cb().then(() => { throw reason }))
     )
   }
 }

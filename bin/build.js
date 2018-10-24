@@ -1,3 +1,8 @@
+/**
+ * @note
+ * @author  wangyuefeng 
+ * @create  2018-10-01
+ */
 const { execCmd } = require('./uitls')
 const path = require('path');
 const chalk = require('chalk');

@@ -1,3 +1,9 @@
+/**
+ * @note
+ * @author  wangyuefeng 
+ * @create  2018-10-01
+ */
+
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')

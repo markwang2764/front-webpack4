@@ -1,3 +1,8 @@
+/**
+ * @note
+ * @author  wangyuefeng 
+ * @create  2018-10-01
+ */
 const express = require("express");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");

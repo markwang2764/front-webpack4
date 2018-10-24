@@ -1,3 +1,8 @@
+/**
+ * @note
+ * @author  wangyuefeng 
+ * @create  2018-10-01
+ */
 const fs = require('fs')
 const path = require('path')
 const tips = "// This file is auto gererated by /bin/build-entry.js"

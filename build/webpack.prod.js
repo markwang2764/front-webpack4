@@ -1,3 +1,9 @@
+/**
+ * @note
+ * @author  wangyuefeng 
+ * @create  2018-10-01
+ */
+
 const { smart } = require('webpack-merge')
 const webpack = require('webpack')
 const baseConfig = require('./webpack.base')
@@ -10,18 +16,18 @@ const entry = require('../config/entry');
 const config = require('../config');
 const time = process.env.npm_config_replace
   ? process.env.npm_config_replace
-  : (function() {
-      var date = new Date();
-      var Y = date.getFullYear();
-      var M = date.getMonth() + 1;
-      var D = date.getDate();
-      var h = date.getHours();
-      var m = date.getMinutes();
-      function addZero(num) {
-        return num > 9 ? num : '0' + num;
-      }
-      return [Y, addZero(M), addZero(D), addZero(h), addZero(m)].join('');
-    })();
+  : (function () {
+    var date = new Date();
+    var Y = date.getFullYear();
+    var M = date.getMonth() + 1;
+    var D = date.getDate();
+    var h = date.getHours();
+    var m = date.getMinutes();
+    function addZero(num) {
+      return num > 9 ? num : '0' + num;
+    }
+    return [Y, addZero(M), addZero(D), addZero(h), addZero(m)].join('');
+  })();
 
 
 module.exports = smart(baseConfig, {
@@ -97,4 +103,4 @@ module.exports = smart(baseConfig, {
 })
 
 
- 
+

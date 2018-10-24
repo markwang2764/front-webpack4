@@ -1,3 +1,8 @@
+/**
+ * @note
+ * @author  wangyuefeng 
+ * @create  2018-10-01
+ */
 const webpack = require('webpack')
 const webpackOptions = require('../build/webpack.dev')
 const opn = require('opn')

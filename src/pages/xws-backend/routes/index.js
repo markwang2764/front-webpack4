@@ -1,6 +1,6 @@
 import React from 'react'
 import {Route, Switch} from 'react-router-dom'
-import AsyncComponent from './AsyncComponent';
+import AsyncComponent from '../utils/AsyncComponent';
 import New from './New'
 // const New = AsyncComponent(() => import(/*webpackChunkName: 'new'*/'./New'))
 

@@ -1,3 +1,8 @@
+/**
+ * @note
+ * @author  wangyuefeng 
+ * @create  2018-10-01
+ */
 const chalk = require('chalk');
 const log = console.log;
 const chalkError = chalk.bold.red;

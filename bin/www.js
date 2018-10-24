@@ -1,4 +1,9 @@
-#!/usr/bin/env node
+#!/usr/bin / env node
+/**
+ * @note
+ * @author  wangyuefeng 
+ * @create  2018-10-01
+ */
 
 const config = require('../config');
 

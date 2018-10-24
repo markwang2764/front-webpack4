@@ -1,3 +1,9 @@
+/**
+ * @note
+ * @author  wangyuefeng 
+ * @create  2018-10-01
+ */
+
 import React from 'react';
 
 const AsyncComponent = loadComponent => (
