@@ -1,0 +1,17 @@
+[
+    {
+        "title": "商品管理",
+        "icon": "shopping-cart",
+        "child": [
+            {
+                "path": "/goods-admin-list",
+                "title": "商品列表"
+            }
+        ]
+    },
+    {
+        "title": "订单管理",
+        "icon": "project",
+        "path": "/order-admin-list"
+    }
+]

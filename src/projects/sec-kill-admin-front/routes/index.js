@@ -2,21 +2,31 @@ import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 import AsyncComponent from '../utils/AsyncComponent';
 
+import json from './routerConf.json';
+
+
+
 class Routes extends React.Component {
+
+  componentDidMount = () => {
+    console.log(json);
+  }
 
   render() {
     return (
-      <div>
-        <Switch>
-          <Route path='/' component={
-            AsyncComponent(() => import(/*webpackChunkName: 'home'*/'./Home'))
-          }></Route>
-
-          <Route path='/new' component={
-            AsyncComponent(() => import(/*webpackChunkName: 'new'*/'./New'))
-          }></Route>
-        </Switch>
-      </div>
+      <Switch>
+        {
+          json.map((v, i) => {
+            console.log(v);
+            return (
+              <Route key={i} path={v} component={
+                AsyncComponent(() => import(/*webpackChunkName: 'home'*/`${v}`))
+              }></Route>
+            )
+          }
+          )
+        }
+      </Switch >
     )
   }
 }

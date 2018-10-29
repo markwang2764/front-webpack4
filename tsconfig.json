@@ -1,9 +1,0 @@
-{
-    "compilerOptions": {
-        "module": "es6",
-        "target": "es6"
-    },
-    "exclude": [
-        "./src/pages/game/core/ts/core.d.ts"
-    ]
-}

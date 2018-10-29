@@ -1,64 +1,68 @@
 import React, { Component } from 'react';
-import { Menu, Icon } from 'antd'
-const SubMenu = Menu.SubMenu
-const MenuItemGroup = Menu.ItemGroup
+
+import { Layout, Breadcrumb, Icon } from 'antd';
+const { Header, Content, Sider, Footer } = Layout;
+import MenuList from '../../component/Menu'
+import route from '../index.js';
 import './index.less';
 
 class Home extends Component {
+  state = {
+    collapsed: false,
+  };
 
   componentDidMount = () => {
+    console.log(this.porps);
+
+    // window.apush = this.props.history.push
+    // window.areplace = this.props.history.replace
+    // window.aback = this.props.history.goback
   }
+
 
   handleClick = e => {
     console.log('list', e);
   }
 
+  toggle = () => {
+    this.setState({
+      collapsed: !this.state.collapsed,
+    });
+  }
+
+
   render() {
     return (
-      <div className="home page">
-        <header className="flex flex-y">
-          <div className="home-header__logo">爆款试用</div>
-          <div className="home-header__user">管理员</div>
-        </header>
-        <div className="home-ment">
-          <Menu
-            onClick={this.handleClick}
-            style={{ width: 256 }}
-            defaultSelectedKeys={['1']}
-            defaultOpenKeys={['sub1']}
-            mode="inline"
-          >
-            <SubMenu key="sub1" title={<span><Icon type="mail" /><span>Navigation One</span></span>}>
-              <MenuItemGroup key="g1" title="Item 1">
-                <Menu.Item key="1">Option 1</Menu.Item>
-                <Menu.Item key="2">Option 2</Menu.Item>
-              </MenuItemGroup>
-              <MenuItemGroup key="g2" title="Item 2">
-                <Menu.Item key="3">Option 3</Menu.Item>
-                <Menu.Item key="4">Option 4</Menu.Item>
-              </MenuItemGroup>
-            </SubMenu>
-            <SubMenu key="sub2" title={<span><Icon type="appstore" /><span>Navigation Two</span></span>}>
-              <Menu.Item key="5">Option 5</Menu.Item>
-              <Menu.Item key="6">Option 6</Menu.Item>
-              <SubMenu key="sub3" title="Submenu">
-                <Menu.Item key="7">Option 7</Menu.Item>
-                <Menu.Item key="8">Option 8</Menu.Item>
-              </SubMenu>
-            </SubMenu>
-            <SubMenu key="sub4" title={<span><Icon type="setting" /><span>Navigation Three</span></span>}>
-              <Menu.Item key="9">Option 9</Menu.Item>
-              <Menu.Item key="10">Option 10</Menu.Item>
-              <Menu.Item key="11">Option 11</Menu.Item>
-              <Menu.Item key="12">Option 12</Menu.Item>
-            </SubMenu>
-          </Menu>
-        </div>
-        <main className="home-content">
-          内容部分
-        </main>
-        <footer>made width wyf</footer>
-      </div>
+      <Layout className="page">
+        <Sider
+          trigger={null}
+          collapsible
+          collapsed={this.state.collapsed}
+        >
+          <div className="logo">logo 爆款试用</div>
+          <MenuList />
+        </Sider>
+        <Layout>
+          <Header style={{ background: '#fff', padding: '0 15px' }}>
+            <Icon
+              className="trigger"
+              type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
+              onClick={this.toggle}
+            />
+            <div className="login fr">管理员</div>
+          </Header>
+          <Breadcrumb style={{ margin: '16px' }}>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>List</Breadcrumb.Item>
+            <Breadcrumb.Item>App</Breadcrumb.Item>
+          </Breadcrumb>
+          <Content style={{ margin: '0 16px', padding: 24, background: '#fff', minHeight: 280 }}>
+          </Content>
+          <Footer style={{ textAlign: 'center' }}>
+            ©2018-10 Created by wangyuefeng
+          </Footer>
+        </Layout>
+      </Layout >
     );
   }
 }

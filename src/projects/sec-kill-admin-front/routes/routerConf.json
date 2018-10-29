@@ -1,0 +1,5 @@
+[
+    "./Home",
+    "./Goods/goods-admin-list",
+    "./Orders/order-admin-list"
+]

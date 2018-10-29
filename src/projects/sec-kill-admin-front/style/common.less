@@ -1,0 +1,102 @@
+
+.page {
+  flex: 1;
+  display: flex;
+  background: #f6f6f6;
+  font-family: "pingFang SC" "pingFang";
+  font-size: 14px;
+  min-height: 100vh;
+}
+
+.fr{
+    float: right;
+}
+
+.fl{
+    float: left;
+}
+
+.icon{
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: inline-block;
+}
+
+.bg-cover{
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.ellipsis{
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap
+} 
+
+.fix-bottom{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 92rpx;
+  width: 100%;
+  z-index: 999;
+  box-sizing: border-box;
+}
+
+.list{
+       height: 110rpx;
+       position: relative;
+       border-bottom: 1rpx solid #eee;
+       display: -webkit-box;
+       display: -webkit-flex;
+       display: flex;
+       justify-content: space-between;
+       -webkit-justify-content: space-between;
+       -webkit-box-pack: justify;
+       -webkit-box-align: center;
+       -webkit-align-items: center;
+       align-items: center;
+  }
+
+  .list-right.arrow{
+    padding-right: 40rpx;
+  }
+.arrow{
+  position: relative;
+}
+.arrow:before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 50%;
+        right: 0;
+        width: 0;
+        height: 0;
+        border:12rpx solid;
+        margin-top: -12rpx;
+        border-color: transparent transparent transparent #939994;
+}
+
+.arrow:after{
+        content: "";
+        display: block;
+        position: absolute;
+        top: 50%;
+        right: 1rpx;
+        width: 0;
+        height: 0;
+        border:12rpx solid;
+        margin-top: -12rpx;
+        border-color: transparent transparent transparent #fff;
+} 
+
+.highlight{
+  font-family: PingFangSC-Medium;
+  font-size:40rpx;
+  color: #01c13a;
+}
+
+.background-linear{
+  background:-webkit-linear-gradient(#01c13a,#1eda56);
+}
+
