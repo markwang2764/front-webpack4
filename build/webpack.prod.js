@@ -50,23 +50,23 @@ module.exports = smart(baseConfig, {
     */
     runtimeChunk: false,
     splitChunks: {
-      // cacheGroups: {
-      //   vendorf: {
-      //     chunks: "all",
-      //     test: /node_modules/, // 路径在 node_modules 目录下的都作为公共部分
-      //     name: "vendors", // 使用 react 入口作为公共部分
-      //     enforce: true,
-      //     priority: 2
-      //   },
-      //   commons: {
-      //     chunks: "all",
-      //     name: "commons", // 使用 commons 入口作为公共部分
-      //     minChunks: 5, // 引用次数大于5则打包进commons
-      //     minSize: 3000, // chunk大小大于这个值才允许打包进commons
-      //     enforce: true,
-      //     priority: 1
-      //   },
-      // },
+      cacheGroups: {
+        vendorf: {
+          chunks: "all",
+          test: /node_modules/, // 路径在 node_modules 目录下的都作为公共部分
+          name: "vendors", // 使用 react 入口作为公共部分
+          enforce: true,
+          priority: 2
+        },
+        commons: {
+          chunks: "all",
+          name: "commons", // 使用 commons 入口作为公共部分
+          minChunks: 5, // 引用次数大于5则打包进commons
+          minSize: 3000, // chunk大小大于这个值才允许打包进commons
+          enforce: true,
+          priority: 1
+        },
+      },
     },
   },
 
@@ -81,10 +81,10 @@ module.exports = smart(baseConfig, {
 
   plugins: [
     new webpack.optimize.OccurrenceOrderPlugin(),
-    // new ExtractTextPlugin({
-    //   filename: `[name]-${time}.css`,
-    //   allChunks: true
-    // }),
+    new ExtractTextPlugin({
+      filename: `[name]-${time}.css`,
+      allChunks: true
+    }),
     new CleanWebpackPlugin('dist', {
       root: path.resolve(__dirname, '../'),
     }),

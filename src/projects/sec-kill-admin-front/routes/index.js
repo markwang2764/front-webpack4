@@ -1,8 +1,6 @@
 import React from 'react'
-import {Route, Switch} from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import AsyncComponent from '../utils/AsyncComponent';
-import New from './New'
-// const New = AsyncComponent(() => import(/*webpackChunkName: 'new'*/'./New'))
 
 class Routes extends React.Component {
 
@@ -14,11 +12,13 @@ class Routes extends React.Component {
             AsyncComponent(() => import(/*webpackChunkName: 'home'*/'./Home'))
           }></Route>
 
-          <Route path='/dnew' component={New}></Route> 
+          <Route path='/new' component={
+            AsyncComponent(() => import(/*webpackChunkName: 'new'*/'./New'))
+          }></Route>
         </Switch>
       </div>
     )
   }
 }
-  
+
 export default Routes;

@@ -15,5 +15,8 @@ module.exports = {
       hostName: '172.32.23.33',
       port: 17801,
     }
+  },
+  build: {
+    productionSourceMap: true
   }
 }

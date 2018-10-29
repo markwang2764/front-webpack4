@@ -24,7 +24,7 @@ exports.computeEntry = function (entry) {
     let rpath = item.path
     let name = item.name
     let ext = item.ext
-    let entryJsPath = path.join(__dirname, '../src/pages/' + rpath + name + ext);
+    let entryJsPath = path.join(__dirname, '../src/projects/' + rpath + name + ext);
     result[rpath + name] = [entryJsPath]
     log(chalkWarning('open ' + item.path + 'entry.html'));
   }
@@ -64,11 +64,11 @@ exports.computeHtmlWebpackEntry = function (entry) {
   //     crossorigin: 'anonymous'
   //   })
   // );
-  
+
   return result;
 };
 
-exports.assetsSubDirectory = function() {
+exports.assetsSubDirectory = function () {
 
   [].slice.call(arguments, 0).unshift('');
   // console.log(arguments)
@@ -76,7 +76,7 @@ exports.assetsSubDirectory = function() {
 };
 
 
-exports.cssLoaders = function(options) {
+exports.cssLoaders = function (options) {
   options = options || {};
   const cssLoader = {
     loader: 'css-loader',
@@ -130,7 +130,7 @@ exports.cssLoaders = function(options) {
   };
 };
 
-exports.styleLoaders = function(options) {
+exports.styleLoaders = function (options) {
   const output = [];
   const loaders = exports.cssLoaders(options);
 
