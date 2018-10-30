@@ -12,11 +12,9 @@ class Home extends Component {
   };
 
   componentDidMount = () => {
-    console.log(this.porps);
-
-    // window.apush = this.props.history.push
-    // window.areplace = this.props.history.replace
-    // window.aback = this.props.history.goback
+    window.apush = this.props.history.push
+    window.areplace = this.props.history.replace
+    window.aback = this.props.history.goback
   }
 
 
@@ -25,9 +23,9 @@ class Home extends Component {
   }
 
   toggle = () => {
-    this.setState({
-      collapsed: !this.state.collapsed,
-    });
+    // this.setState({
+    //   collapsed: !this.state.collapsed,
+    // });
   }
 
 

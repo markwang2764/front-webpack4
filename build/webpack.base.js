@@ -17,6 +17,7 @@ module.exports = {
     alias: {
       'routes': path.resolve(__dirname, '../src/routes'),
       '@util': path.resolve(__dirname, '../src/util'),
+      '@com': path.resolve(__dirname, '../src/projects/sec-kill-admin-front/components')
     },
     extensions: ['.wasm', '.mjs', '.js', '.json', '.jsx', '.ts', '.css', '.less'],
     modules: [

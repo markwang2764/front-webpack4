@@ -6,29 +6,52 @@
 
 import React from 'react';
 
+const makeCancelable = promise => {
+  let _hasCanceled = false;
+  const wrappedPromise = new Promise((resolve, reject) => {
+    promise.then(val => {
+      _hasCanceled ? reject({ isCanceled: true }) : resolve(val)
+    })
+    promise.catch(error => {
+      _hasCanceled ? reject({ isCanceled: true }) : reject(error)
+    })
+  })
+  return {
+    promise: wrappedPromise,
+    cancel() {
+      _hasCanceled = true
+    }
+  }
+}
 const AsyncComponent = loadComponent => (
   class WrapperComponent extends React.Component {
+    cancelable = null
     state = {
-      Component: null
+      Component: null,
     }
+
     componentWillMount() {
       if (this.hasLoadedComponent()) return
-      loadComponent()
+      this.cancelable = makeCancelable(loadComponent())
+      this.cancelable.promise
         .then(module => module.default)
         .then(Component => {
-          this.setState({Component})
-        })
-        .catch(err => {
-          console.error('load error ==> AsyncComponent');
-          throw err;
+          if (Component) {
+            this.setState({ Component })
+          }
+        }).catch(err => {
+          // console.error('load error ==> AsyncComponent');
+          // throw err;
         })
     }
+
     hasLoadedComponent() {
       return this.state.Component !== null
     }
 
-    das(){
-      
+
+    componentWillUnmount() {
+      this.cancelable.cancel()
     }
 
     render() {

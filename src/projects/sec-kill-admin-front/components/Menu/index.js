@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Switch, Route, Link, browserHistory } from 'react-router-dom';
-
 import { Menu, Icon } from 'antd';
 const { SubMenu } = Menu;
+import { withRouter } from "react-router-dom";
+
 
 
 import json from './menu.json'
@@ -11,7 +11,6 @@ import './index.less';
 class MenuList extends Component {
 
     componentDidMount = () => {
-
     }
 
     shouldComponentUpdate = (nextProps, nextState) => {
@@ -19,14 +18,8 @@ class MenuList extends Component {
     }
 
     handleClick = e => {
-        console.log(window);
-
-        console.log(this.props);
-        console.log(window);
-
-
         if (e.key.indexOf('/') != -1) {
-            window.apush(e.key)
+            this.props.history.push(e.key)
         }
     }
     /**
@@ -68,4 +61,4 @@ class MenuList extends Component {
     }
 }
 
-export default MenuList;
+export default withRouter(MenuList);

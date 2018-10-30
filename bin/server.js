@@ -26,7 +26,7 @@ const histroyApiFallback = require('connect-history-api-fallback')
 const entryArr = entry[0].template.split('/')
 const len = entryArr.length
 const html = entryArr[len - 2] + '/' + entryArr[len - 1]
-
+const rootPath = entryArr[len - 2]
 app.use(histroyApiFallback({
   index: '/' + html,
   htmlAcceptHeaders: ['text/html', 'application/xhtml+xml']
@@ -48,6 +48,7 @@ app.use(hotMiddlerware(compiler, {
 app.use(express.static('assets/'))
 
 let browserUrl = `http://localhost:${dev.port}`
+
 opn(`${browserUrl}/${html}`);
 
 app.listen(dev.port)

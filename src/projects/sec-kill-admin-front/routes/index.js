@@ -1,31 +1,34 @@
 import React from 'react'
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, Redirect } from 'react-router-dom'
 import AsyncComponent from '../utils/AsyncComponent';
+import App from '../app.js';
 
-import json from './routerConf.json';
 
 
 
 class Routes extends React.Component {
 
-  componentDidMount = () => {
-    console.log(json);
-  }
-
   render() {
     return (
       <Switch>
-        {
-          json.map((v, i) => {
-            console.log(v);
-            return (
-              <Route key={i} path={v} component={
-                AsyncComponent(() => import(/*webpackChunkName: 'home'*/`${v}`))
-              }></Route>
-            )
-          }
-          )
-        }
+
+        <App>
+          <Route exact path='/' component={
+            AsyncComponent(() => import(/*webpackChunkName: 'goods-admin-list'*/'./Goods/goods-admin-list'))
+          }></Route>
+
+          <Route exact path='/sec-kill-admin-front/entry.html' component={
+            AsyncComponent(() => import(/*webpackChunkName: 'goods-admin-list'*/'./Goods/goods-admin-list'))
+          }></Route>
+
+          <Route exact path='/sec-kill-admin-front/goods-admin-list' component={
+            AsyncComponent(() => import(/*webpackChunkName: 'goods-admin-list'*/'./Goods/goods-admin-list'))
+          }></Route>
+
+          <Route exact path='/sec-kill-admin-front/order-admin-list' component={
+            AsyncComponent(() => import(/*webpackChunkName: 'order-admin-list'*/'./Orders/order-admin-list'))
+          }></Route>
+        </App>
       </Switch >
     )
   }
