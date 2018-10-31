@@ -15,9 +15,9 @@ let arguments = process.argv.splice(2)
 
 execCmd(`npm run build:file ${arguments[0] ? arguments[0] : ''}`)
   .then(() => {
-    
+
     const www = spawn('node', ['./bin/server.js'])
-    
+
     www.stdout.on('data', data => {
 
       if (data.toString().match(/error\s{2,}/ig)) {
@@ -31,7 +31,7 @@ execCmd(`npm run build:file ${arguments[0] ? arguments[0] : ''}`)
       www.stderr.on('data', (data) => {
         log(chalkError(`stderr: ${data}`));
       });
-  
+
       www.on('close', (code) => {
         log(chalk.blue(`child process exited with code ${code}`));
       });
@@ -39,4 +39,4 @@ execCmd(`npm run build:file ${arguments[0] ? arguments[0] : ''}`)
   })
   .catch((error) => {
     log(chalkError(error));
-});
+  });

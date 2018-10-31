@@ -13,7 +13,7 @@ const FriendlyErrorsPlugin = require("friendly-errors-webpack-plugin");
 
 const baseConfig = require('./webpack.base')
 const entry = require('../config/entry')
-const utils = require('./uitls')
+const utils = require('./utils')
 
 const {
   dev

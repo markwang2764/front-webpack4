@@ -11,10 +11,9 @@ const HtmlWebpackScriptAttributesPlugin = require('html-webpack-script-attribute
 const chalk = require('chalk');
 const log = console.log;
 const chalkWarning = chalk.keyword('orange');
+const config = require('../config');
 
-function resolve(dir) {
-  return path.join(__dirname, dir)
-}
+
 exports.computeEntry = function (entry) {
 
   entry = entry || []
@@ -142,4 +141,16 @@ exports.styleLoaders = function (options) {
     });
   }
   return output;
+};
+
+exports.getHost = function () {
+  const HOST = process.env.HOST;
+
+
+  return HOST || config.dev.host;
+};
+
+exports.getPort = function () {
+  const PORT = process.env.PORT && Number(process.env.PORT);
+  return PORT || config.dev.port;
 };

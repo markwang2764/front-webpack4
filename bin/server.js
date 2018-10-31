@@ -20,7 +20,7 @@ const app = express()
 
 const devMiddlerware = require('webpack-dev-middleware')
 const hotMiddlerware = require('webpack-hot-middleware')
-// const proxyMiddleware = require('http-proxy-middleware')
+const httpProxy = require('../mock/proxy');
 const histroyApiFallback = require('connect-history-api-fallback')
 
 const entryArr = entry[0].template.split('/')
@@ -46,6 +46,35 @@ app.use(hotMiddlerware(compiler, {
 }));
 
 app.use(express.static('assets/'))
+
+
+Object.defineProperty(app, '_$_proxyCache', {
+  value: {}
+})
+Object.defineProperty(app, 'getProxy', {
+  value: function (url, proxy, cb) {
+    console.log(url)
+    console.log(proxy)
+    app._$_proxyCache[url] = proxy;
+    console.log(app._$_proxyCache);
+    app.get(url, (req, res) => {
+      var url = req.url;
+      if (url.indexOf('?')) {
+        var url = url.split('?')[0];
+      }
+      var prox = app._$_proxyCache[url];
+      cb(req, res, prox);
+    });
+  }
+})
+
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+httpProxy(app);
+
+
 
 let browserUrl = `http://localhost:${dev.port}`
 

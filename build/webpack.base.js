@@ -7,7 +7,7 @@
 const path = require('path')
 const ManifestPlugin = require('webpack-manifest-plugin');
 const entry = require("../config/entry");
-const utils = require("./uitls")
+const utils = require("./utils")
 
 module.exports = {
 
@@ -15,8 +15,8 @@ module.exports = {
 
   resolve: {
     alias: {
-      'routes': path.resolve(__dirname, '../src/routes'),
-      '@util': path.resolve(__dirname, '../src/util'),
+      '@utils': path.resolve(__dirname, '../src/utils'),
+      '@components': path.resolve(__dirname, '../src/components'),
       '@com': path.resolve(__dirname, '../src/projects/sec-kill-admin-front/components')
     },
     extensions: ['.wasm', '.mjs', '.js', '.json', '.jsx', '.ts', '.css', '.less'],

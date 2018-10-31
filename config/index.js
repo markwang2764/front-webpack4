@@ -11,9 +11,14 @@ module.exports = {
     devtool: '#cheap-module-eval-source-map',
     useEslint: false,
     proxy: {
+      // 转发接口主机名
       protocol: 'http://',
-      hostName: '172.32.23.33',
-      port: 17801,
+      // 转发接口主机名
+      hostName: 'skadmin.czhuyl',
+      port: 80,
+      // 是否使用代理接口数据 , false则使用mock数据
+      // open: false
+      open: true
     }
   },
   build: {
