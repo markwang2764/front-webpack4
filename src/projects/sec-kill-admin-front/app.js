@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
-
+import { withRouter } from "react-router-dom";
 import { Layout, Breadcrumb, Icon } from 'antd';
 const { Header, Content, Sider, Footer } = Layout;
 import MenuList from './components/Menu'
 
 
 import './app.less';
+@withRouter
 class App extends Component {
     state = {
         collapsed: false,
     };
 
     componentDidMount() {
+        if (sessionStorage.token == null || sessionStorage.token == 'undefined') {
+            this.props.history.push('/sec-kill-admin-front/login')
+        }
     }
 
     handleClick = e => {

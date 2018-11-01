@@ -66,6 +66,7 @@
     "@types/react-dom": "^16.0.9",
     "antd": "^3.10.2",
     "axios": "^0.18.0",
+    "query-string": "^6.2.0",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "react-redux": "^5.0.7",

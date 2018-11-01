@@ -10,6 +10,7 @@ import {
 } from 'antd'
 
 import ToolBar from '@com/ToolBar'
+import httpRequest from '@utils/httpRequest';
 export default class GoodsAdminList extends Component {
     state = {
         dataSource: [],
@@ -28,9 +29,16 @@ export default class GoodsAdminList extends Component {
 
 
     componentDidMount() {
-        window.apush = this.props.history.push
-        window.areplace = this.props.history.replace
-        window.aback = this.props.history.goback
+        this.getList()
+    }
+
+    getList() {
+        httpRequest.get('/products/get_list').then(res => {
+            res.forEach((v, i) => {
+                v.key = i
+            });
+            this.setState({ dataSource: res })
+        })
     }
 
 
@@ -52,16 +60,16 @@ export default class GoodsAdminList extends Component {
                 key: 'price'
             }, {
                 title: '名称',
-                dataIndex: 'name',
-                key: 'name'
+                dataIndex: 'title',
+                key: 'title'
             }, {
                 title: '上架',
-                dataIndex: 'puaway',
-                key: 'puaway'
+                dataIndex: 'on_shelf_time',
+                key: 'on_shelf_time'
             }, {
                 title: '下架',
-                dataIndex: 'soldout',
-                key: 'soldout'
+                dataIndex: 'down_shelf_time',
+                key: 'down_shelf_time'
             }, {
                 title: '操作',
                 dataIndex: 'operation',
@@ -69,8 +77,8 @@ export default class GoodsAdminList extends Component {
                 render: (text, record) => {
                     return (
                         <div>
-                            <span>编辑</span>
-                            <span>删除</span>
+                            <span className="table-opreation-btn-edit">编辑</span>
+                            <span className="table-opreation-btn">删除</span>
                         </div>
                     )
                 }

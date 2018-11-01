@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 const FormItem = Form.Item;
+
 import './index.less';
 
 import httpRequest from '@utils/httpRequest';
@@ -8,24 +9,27 @@ import httpRequest from '@utils/httpRequest';
 @Form.create()
 class Login extends Component {
 
+    componentDidMount() {
+    }
+
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 console.log('Received values of form: ', values);
-                console.log(httpRequest);
+                const {
+                    userName, password
+                } = values
 
-                // httpRequest.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded'
-                httpRequest.post('/auth/login', {
-                    uname: 'zhuyl',
-                    pwd: 'uf0000'
+                httpRequest.post('auth/login', {
+                    uname: userName,
+                    pwd: password,
+                }).then(res => {
+                    console.log(res.then);
+
+                    sessionStorage.token = res.token || ''
+                    this.props.history.push('/sec-kill-admin-front/goods-admin-list')
                 })
-                    .then(function (response) {
-                        console.log(response);
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
             }
         });
     }

@@ -16,16 +16,17 @@ var proxyConfig = require('./proxy-config');
  */
 
 function initApiRoutes(app) {
-    app.use('*', (req, res) => {
-        var headers = req.headers
-        var url = req.baseUrl;
-        if (url.indexOf('api3') == -1) return
+
+    app.use('/api3/auth/login', (req, res) => {
+        const headers = req.headers
+        let url = req.baseUrl;
         url = url.slice(5)
-        var params = req.body;
-        var method = req.method.toLowerCase();
+
+        const params = req.body;
+        const method = req.method.toLowerCase();
         url = proxyConfig.protocol + proxyConfig.hostName + (proxyConfig.port === 80 ? '' : ':' + proxyConfig.port) + url;
         axios.defaults.headers['Content-Type'] = headers['content-type']
-        console.log(`request url = ${url}`);
+
         if (method === 'get') {
             axios.get(url)
                 .then(function (response) {
@@ -33,23 +34,43 @@ function initApiRoutes(app) {
                 })
                 .catch(function (err) {
                     res.json({
-                        "status": err.response.status,
-                        "statusText": err.response.statusText,
                         "data": err.response.data
                     });
                 });
         } else if (method === 'post') {
-            axios.post(url, params)
-                .then(function (response) {
-                    res.json(response.data);
-                })
-                .catch(function (err) {
-                    res.json({
-                        "status": err.response.status,
-                        "statusText": err.response.statusText,
-                        "data": err.response.data
-                    });
-                });
+            axios({
+                method: 'post',
+                url,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                data: {
+                    uname: 'zhuyl',
+                    pwd: 'uf0000'
+                },
+                transformRequest: [function (data) {
+                    let ret = ''
+                    for (let it in data) {
+                        ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+                    }
+                    return ret
+                }],
+
+            }).then(response => {
+                res.json(response.data);
+            })
+            // axios.post(url, params)
+            //     .then(function (response) {
+            //         console.log('post');
+            //         console.log(response.data);
+            //         res.json(response.data);
+            //     })
+            //     .catch(function (err) {
+            //         console.log(err);
+            //         res.json({
+            //             "data": err.response.data
+            //         });
+            //     });
         } else {
             res.end('unkown http method');
         }
