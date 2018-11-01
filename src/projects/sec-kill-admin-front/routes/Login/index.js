@@ -15,7 +15,7 @@ class Login extends Component {
                 console.log('Received values of form: ', values);
                 console.log(httpRequest);
 
-                httpRequest.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+                // httpRequest.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded'
                 httpRequest.post('/auth/login', {
                     uname: 'zhuyl',
                     pwd: 'uf0000'
