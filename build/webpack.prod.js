@@ -11,6 +11,8 @@ const path = require('path')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
+const webpackBuildNotifier = require('webpack-build-notifier')
+const progressBarWebpackPlugin = require('progress-bar-webpack-plugin')
 const utils = require('./utils');
 const entry = require('../config/entry');
 const config = require('../config');
@@ -80,6 +82,8 @@ module.exports = smart(baseConfig, {
 
 
   plugins: [
+    new progressBarWebpackPlugin(),
+    new webpackBuildNotifier(),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new ExtractTextPlugin({
       filename: `[name]-${time}.css`,

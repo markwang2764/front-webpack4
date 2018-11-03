@@ -6,6 +6,7 @@
 
 const path = require('path')
 const ManifestPlugin = require('webpack-manifest-plugin');
+const speedMeasurePlguin = require('speed-measure-webpack-plugin')
 const entry = require("../config/entry");
 const utils = require("./utils")
 
@@ -92,8 +93,9 @@ module.exports = {
             name：指定文件输出名
             [hash] 为源文件的hash值，[ext] 为后缀。
             */
-            name: '[path][name].[ext]',
-            outputPath: utils.assetsSubDirectory('')
+            publicPath: '/assets/',
+            outputPath: '/images/',
+            name: '[name].[ext]'
           }
         }]
       },
@@ -107,9 +109,9 @@ module.exports = {
           loader: 'url-loader',
           options: {
             limit: 2048,
-            name: '[path][name].[ext]',
-            publicPath: 'assets/',
-            outputPath: 'images/'
+            name: '[name].[ext]',
+            publicPath: '/assets/',
+            outputPath: '/images/'
           }
         }
       },
@@ -122,6 +124,7 @@ module.exports = {
   },
 
   plugins: [
+    new speedMeasurePlguin(),
     new ManifestPlugin()
   ]
 }
