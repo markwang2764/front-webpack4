@@ -24,14 +24,16 @@ const httpProxy = require('../mock/proxy');
 const proxy = require('http-proxy-middleware');//引入代理中间件
 const histroyApiFallback = require('connect-history-api-fallback')
 
-const entryArr = entry[0].template.split('/')
-const len = entryArr.length
-const html = entryArr[len - 2] + '/' + entryArr[len - 1]
-const rootPath = entryArr[len - 2]
+const html = '/' + entry[0].template
+
+
 app.use(histroyApiFallback({
-  index: '/' + html,
+  index: html,
   htmlAcceptHeaders: ['text/html', 'application/xhtml+xml']
 }));
+console.log(webpackOptions);
+console.log(html);
+
 
 app.use(devMiddlerware(compiler, {
   publicPath: webpackOptions.output.publicPath,
@@ -46,24 +48,23 @@ app.use(hotMiddlerware(compiler, {
   log: false
 }));
 
-app.use(express.static('assets/'))
+// app.use(express.static('assets/'))
 
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-var options = {
-  target: 'http://115.159.25.77:3000/', // target host
-  changeOrigin: true,                // needed for virtual hosted sites
-  pathRewrite: {
-    '^/api3/': '/'     // rewrite path
-  }
-};
-// Add middleware for http proxying
-app.use('/api3/*', proxy(options));//api子目录下的都是用代理
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: false }));
+// var options = {
+//   target: 'http://115.159.25.77:3000/', // target host
+//   changeOrigin: true,                // needed for virtual hosted sites
+//   pathRewrite: {
+//     '^/api3/': '/'     // rewrite path
+//   }
+// };
+// // Add middleware for http proxying
+// app.use('/api3/*', proxy(options));//api子目录下的都是用代理
 
 
 let browserUrl = `http://localhost:${dev.port}`
 
-opn(`${browserUrl}/${html}`);
+opn(`${browserUrl}`);
 app.listen(dev.port)
 // module.exports = app;

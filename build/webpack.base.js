@@ -6,10 +6,10 @@
 
 const path = require('path')
 const ManifestPlugin = require('webpack-manifest-plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const speedMeasurePlguin = require('speed-measure-webpack-plugin')
 const entry = require("../config/entry");
 const utils = require("./utils")
-
 module.exports = {
 
   entry: utils.computeEntry(entry),
@@ -18,7 +18,8 @@ module.exports = {
     alias: {
       '@utils': path.resolve(__dirname, '../src/utils'),
       '@components': path.resolve(__dirname, '../src/components'),
-      '@com': path.resolve(__dirname, '../src/projects/sec-kill-admin-front/components')
+       // You are using the runtime-only build of Vue where the template compiler is not available
+       'vue$': 'vue/dist/vue.common.js'
     },
     extensions: ['.wasm', '.mjs', '.js', '.json', '.jsx', '.ts', '.css', '.less'],
     modules: [
@@ -47,6 +48,15 @@ module.exports = {
               attrs: ['img:src', 'link:href']
             }
           }]
+      },
+
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader',
+        options: {
+          loaders: {}
+          // other vue-loader options go here
+        }
       },
 
       {
@@ -124,7 +134,8 @@ module.exports = {
   },
 
   plugins: [
+    new VueLoaderPlugin,
     new speedMeasurePlguin(),
-    new ManifestPlugin()
+    new ManifestPlugin(),
   ]
 }

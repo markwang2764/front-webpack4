@@ -1,0 +1,23 @@
+{
+ "editor.fontSize": 13,
+ "files.autoSave":"afterDelay",
+ "files.autoSaveDelay": 3000,
+ "prettier.singleQuote": false,
+ "prettier.eslintIntegration": true,
+ "insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
+"javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
+"editor.snippetSuggestions": "top",
+"workbench.colorTheme": "Atom Material Theme",
+"files.associations": {
+    "*.cjson": "jsonc",
+    "*.wxss": "css",
+    "*.wxs": "javascript"
+},
+"emmet.includeLanguages": {
+    "wxml": "html"
+},
+"minapp-vscode.disableAutoConfig": true,
+"workbench.iconTheme": "eq-material-theme-icons",
+"explorer.confirmDelete": false,
+"javascript.implicitProjectConfig.experimentalDecorators": true
+}

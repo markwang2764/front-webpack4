@@ -9,7 +9,7 @@ import {
     Icon
 } from 'antd'
 
-import ToolBar from '@com/ToolBar'
+import ToolBar from '../../../components/ToolBar'
 import httpRequest from '@utils/httpRequest';
 export default class GoodsAdminList extends Component {
     state = {

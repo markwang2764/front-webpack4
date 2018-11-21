@@ -6,23 +6,31 @@
 const fs = require('fs')
 const path = require('path')
 const tips = "// This file is auto gererated by /bin/build-entry.js"
-const pagePath = 'src/projects'
-const entryDir = path.join(__dirname, '../src/projects')
+const entryDir = path.join(__dirname, '../src')
 
 let args = process
   .argv
   .splice(2);
+
 ((entryDir) => {
   let entryResult = []
   loopDir(entryDir, (fileDir) => {
+    
     const relative = path.relative(entryDir, fileDir)
+    console.log(relative);
+    console.log(entryDir);
+    console.log(fileDir);
+    
+    
+    
 
     const ext = relative.substring(relative.lastIndexOf('.'), relative.length)
     const rpath = relative.substring(0, relative.lastIndexOf('/') + 1)
-    const template = pagePath + '/' + relative.replace(/entry\.(js|ts)/, 'entry.html')
-
-    const htmlPath = path.join(__dirname, '..', template)
-
+    const template = relative.replace(/entry\.(js|ts)/, 'entry.html')
+    console.log(template);
+    
+    const htmlPath = path.join(__dirname, '..', 'src/' + template)
+    
     const htmlContent = fs.readFileSync(htmlPath, 'utf8')
     let title = htmlContent.match(/<title>(.*)<\/title>/)
     title = title ? title[1] : ''
@@ -35,7 +43,7 @@ let args = process
       title: '${title}'
     }`)
   });
-
+  
   const content = `${tips}
   module.exports = [
   ${entryResult.join(',\n')}
@@ -49,18 +57,19 @@ let args = process
  * @param cb
  */
 function loopDir(dir, cb) {
+  
   const pages = fs.readdirSync(dir);
 
   pages.forEach(name => {
 
     const fileDir = path.join(dir, name);
-
     const stat = fs.statSync(fileDir);
+
     // 当前为文件结束
     if (stat.isFile()) {
       // 过滤不需要的文件
-
       if (filterFile(fileDir)) {
+        
         cb && cb(fileDir);
       }
     } else if (stat.isDirectory()) {

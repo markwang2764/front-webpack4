@@ -34,7 +34,6 @@ module.exports = smart(baseConfig, {
   mode: 'development',
 
   output: {
-    filename: 'assets/[name].js',
     publicPath: '/',
   },
 

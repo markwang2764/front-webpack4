@@ -23,7 +23,7 @@ exports.computeEntry = function (entry) {
     let rpath = item.path
     let name = item.name
     let ext = item.ext
-    let entryJsPath = path.join(__dirname, '../src/projects/' + rpath + name + ext);
+    let entryJsPath = path.join(__dirname, '../src/' + rpath + name + ext);
     result[rpath + name] = [entryJsPath]
     log(chalkWarning('open ' + item.path + 'entry.html'));
   }
@@ -41,7 +41,7 @@ exports.computeHtmlWebpackEntry = function (entry) {
     let name = item.name;
     // let pathBuild = path.replace(/\//g, '-')
     let pathBuild = path;
-    let template = item.template;
+    let template = "src/"+item.template;
 
     result.push(
       new HtmlWebpackPlugin({

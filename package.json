@@ -1,7 +1,7 @@
 {
   "name": "webpack4",
   "version": "1.0.0",
-  "description": "秒杀后台管理",
+  "description": "webpack-web-wangyuefeng",
   "main": "index.js",
   "scripts": {
     "build": "cross-env NODE_ENV=production node bin/build.js",
@@ -62,7 +62,12 @@
     "webpack-hot-middleware": "^2.24.2",
     "webpack-manifest-plugin": "^2.0.3",
     "webpack-merge": "^4.1.4",
-    "speed-measure-webpack-plugin": "^1.2.3"
+    "speed-measure-webpack-plugin": "^1.2.3",
+    "vue": "^2.5.16",
+    "vue-loader": "^15.2.4",
+    "vue-router": "^3.0.1",
+    "vue-template-compiler": "^2.5.16",
+    "vuex": "^3.0.1"
   },
   "dependencies": {
     "@types/react": "^16.4.18",
