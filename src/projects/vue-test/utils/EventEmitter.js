@@ -13,7 +13,7 @@ class EventEmitter {
      * @param {事件名词} eventName
      * @param {事件执行} callback
      */
-    subscribe (eventName, callback) {
+    on (eventName, callback) {
       if (!this.handlers[eventName]) {
         this.handlers[eventName] = [];
       }
