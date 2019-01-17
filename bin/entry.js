@@ -17,17 +17,12 @@ let args = process
   loopDir(entryDir, (fileDir) => {
     
     const relative = path.relative(entryDir, fileDir)
-    console.log(relative);
-    console.log(entryDir);
-    console.log(fileDir);
-    
     
     
 
     const ext = relative.substring(relative.lastIndexOf('.'), relative.length)
     const rpath = relative.substring(0, relative.lastIndexOf('/') + 1)
     const template = relative.replace(/entry\.(js|ts)/, 'entry.html')
-    console.log(template);
     
     const htmlPath = path.join(__dirname, '..', 'src/' + template)
     

@@ -31,8 +31,6 @@ app.use(histroyApiFallback({
   index: html,
   htmlAcceptHeaders: ['text/html', 'application/xhtml+xml']
 }));
-console.log(webpackOptions);
-console.log(html);
 
 
 app.use(devMiddlerware(compiler, {
